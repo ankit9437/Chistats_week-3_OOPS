@@ -1,0 +1,465 @@
+#10. List down the  all 20 operators and their corresponding magic methods
+
+"""
++	object.__add__(self, other)
+-	object.__sub__(self, other)
+*	object.__mul__(self, other)
+//	object.__floordiv__(self, other)
+/	object.__truediv__(self, other)
+%	object.__mod__(self, other)
+**	object.__pow__(self, other[, modulo])
+<<	object.__lshift__(self, other)
+>>	object.__rshift__(self, other)
+&	object.__and__(self, other)
+^	object.__xor__(self, other)
+|	object.__or__(self, other)
++=	object.__iadd__(self, other)
+-=	object.__isub__(self, other)
+*=	object.__imul__(self, other)
+/=	object.__idiv__(self, other)
+//=	object.__ifloordiv__(self, other)
+%=	object.__imod__(self, other)
+**=	object.__ipow__(self, other[, modulo])
+<<=	object.__ilshift__(self, other)
+>>=	object.__irshift__(self, other)
+&=	object.__iand__(self, other)
+^=	object.__ixor__(self, other)
+|=	object.__ior__(self, other)
+-	object.__neg__(self)
++	object.__pos__(self)
+abs()	object.__abs__(self)
+~	object.__invert__(self)
+complex()	object.__complex__(self)
+int()	object.__int__(self)
+long()	object.__long__(self)
+float()	object.__float__(self)
+oct()	object.__oct__(self)
+hex()	object.__hex__(self""""""11. Create student class with instance variables as name and marks. Create student objects and use magic
+methods to compare the marks of students. Print the topper between three students."""
+
+class student:
+    def __init__(self,name,marks):
+        self.name=name
+        self.marks=marks
+    def __lt__(self, mk1):
+        m1=self.marks
+        m2=mk1.marks
+        if(m1>m2):
+            return self.name
+        elif(m2>m1 ):
+            return mk1.name
+
+ob1=student('ankit',40)
+ob2=student('sarthak',30)
+ob3=student('kunal',20)
+print(ob2>ob1, "has got highest marks")
+print(ob2>ob3," has got second highest marks")
+
+"""12. Create an employee class with instance variables as name and "per days salary". Create class timesheet with
+name and days. use magic method to calculate the employees salary of the month."""
+
+class employee:
+    def __init__(self,name,salary):
+        self.name=name
+        self.salary=salary
+
+class time(employee):
+    def __init__(self,days):
+        self.days=days
+    def __rmul__(self, other):
+        return (self.days*other.salary)
+
+ob1=employee('Ankit',100)
+ob2=time(20)
+print(ob1.name ,"has salary of ",ob1 * ob2)
+
+"""Output
+Ankit has salary of  2000"""
+
+
+"""13. Method Overriding: Create class Area and define display method using below
+	- Display method will take circle redious as parameter, calculate the area and prints it.
+	- Display method will take rectangle lenght and width as parameter, calculate the area and prints it.
+	- Display method will take Cube lenght, width and height as parameter, calculate the area and prints it."""
+
+class area:
+    def cal(self, x = None, y = None,z=None):
+        if x != None and y != None:
+            return x * y
+        elif x != None and y != None and z!=None:
+            return x * y
+        else:
+            return (3.14*x*x)
+
+ob1=area()
+print(ob1.cal(5,10))
+
+"""Output
+50"""
+#14. Solve above Que 13 using Default arguments
+from typing import overload
+
+
+@overload
+def area(l, b):
+  return l * b
+
+@overload
+def area(r):
+  import math
+  return math.pi * r ** 2
+
+@overload
+def area(l,b,h):
+    return l*b
+
+
+#area(3, 4)
+area(7)"""16. Method overriding: Create Class Shape, define areaCalculator method to calculate area, use Variable arguments to take arguments. Define displayArea method which will print the name and area of shape.
+Create classes : Circle, Rectangle and Cube, inherit the Shape class and declare their own displayArea method.
+Create object of each class and call areaCalculator method and display method to print the calculated area and name of the shape.
+"""
+
+class shape:
+    def areaCalculator( x = None, y = None,z=None):
+        if x != None and y != None and z==None:
+            return x * y
+        elif x != None and y != None and z!=None:
+            return x * y
+        elif x!=None and y==None and z==None:
+            return (3.14*x*x)
+class Circle(shape):
+    def disparea(a):
+        print("Area of Circle is",a)
+class Rectangle(shape):
+    def disparea(a):
+        print("Area of Rectangle is",a)
+class Cube(shape):
+    def disparea(a):
+        print("Area of Cube is",a)
+
+obj1=Rectangle
+a=obj1.areaCalculator(8,3)
+obj1.disparea(a)
+
+"""Output
+Area of Rectangle is 24
+"""
+#17. Using Que 16 details call parent class method using super method
+
+class shape:
+    def areaCalculator( x = None, y = None,z=None):
+        if x != None and y != None and z==None:
+            return x * y
+        elif x != None and y != None and z!=None:
+            return x * y
+        elif x!=None and y==None and z==None:
+            return (3.14*x*x)
+class Circle(shape):
+    def disparea(a):
+        print("Area of Circle is",a)
+class Rectangle(shape):
+    def disparea(a):
+        print("Area of Rectangle is",a)
+class Cube(shape):
+    def disparea(a):
+        print("Area of Cube is",a)#2. What is duck typing philosophy of python
+
+"""Duck typing is a concept related to dynamic typing, where the type or the class of an object is less important
+than the methods it defines. When you use duck typing, you do not check types at all. Instead, you check for the
+presence of a given method or attribute.""""""20. Write note on
+	- Abstract method, @abstractmethod and abc
+	- Abstract class
+	- Interface
+	- public, private and protected members """
+
+"""An abstract method is a method that is declared, but contains no implementation.Abstract classes may not be 
+instantiated, and its abstract methods must be implemented by its subclasses. 'abc' works by marking methods of the 
+base class as abstract. This is done by @absttractmethod decorator. A concrete class which is a sub class of such 
+abstract base class then implements the abstract base by overriding its abstract methods.
+A class is called an Abstract class if it contains one or more abstract methods. Abstract classes may not be 
+instantiated, and its abstract methods must be implemented by its subclasses.
+The interface is a collection of method signatures that should be provided by the implementing class. Implementing 
+an interface is a way of writing an organized code and achieve abstraction.
+Public members are accessible from outside the class. The object of the same class is required to invoke a public 
+method.
+Protected members of a class are accessible from within the class and are also available to its sub-classes. No 
+other environment is permitted access to it.
+Python doesn't have any mechanism that effectively restricts access to any instance variable or method. Python 
+prescribes a convention of prefixing the name of the variable/method with a single or double underscore to emulate 
+the behavior of protected and private access specifiers.The double underscore __ prefixed to a variable makes it 
+private. It gives a strong suggestion not to touch it from outside the class. Any attempt to do so will result in 
+an AttributeError""""""21. Create class "Shape" and Define method calculateArea which calculates the area of shape and declare an abstract method : display
+	- Create class Circle which inherets the Shape class, implements the abstract display method. It calls calculateArea method to calculate the area of circle.
+	- Create class Rectangle which inherets the Shape class, implements the abstract display method. It calls calculateArea method to calculate the area of circle.
+	- Create class Cube which inherets the Shape class, implements the abstract display method. It calls calculateArea method to calculate the area of circle.
+"""
+
+from abc import ABC, abstractmethod
+
+class Shape:
+    @abstractmethod
+    def area(self):
+        pass
+class Circle(Shape):
+    def area(self,r):
+        print("Area is",3.14*r*r)
+class Rectangle(Shape):
+    def area(self,l,b):
+        print("Area is",l*b)
+
+class Cube(Shape):
+    def area(self,s):
+        print("Area is",s*s)
+
+s1=Circle()
+s1.area(3)
+
+s2=Rectangle()
+s2.area(3,4)
+
+"""Output
+Area is 28.259999999999998
+Area is 12""""""22. Create class Animal and declare the abstract method talk in it.
+Create class Dog, Duck, Cat and Goat. Inherit the class Animal and provide the implementation to talk method.
+Talk method will print the voice of an animal."""
+
+from abc import ABC, abstractmethod
+class Animal:
+    @abstractmethod
+    def talk(self):
+        pass
+class Dog(Animal):
+    def talk(self):
+        print("Bow Bow")
+class Duck(Animal):
+    def talk(self):
+        print("Quack Quack")
+class Cat(Animal):
+    def talk(self):
+        print("Meo Meo")
+class Goat(Animal):
+    def talk(self):
+        print("Meh meh")
+
+ob=Goat()
+ob.talk()
+
+"""Output
+Meh meh""""""23. Create an abstract class as Student.
+	- Initialize Student calss as : Student(). Mention the reasone of successful initialization of the Student calss.
+	- Extend class ABC and initialize Student calss as : Student(). Mention the reasone of successful initialization of the Student calss.
+	- Extend class ABC and Declare abstract method deplay() in the Student calss. try to initialize the class Student.
+	- Declare abstract method deplay() in the Student calss. try to initialize the class Student."""
+
+from abc import ABC, abstractmethod
+
+class Student:
+    @abstractmethod
+    def display(self):
+        pass
+class ABC(Student):
+    def display(self,n):
+        print("Name of student is",n)
+
+s1=ABC()
+s1.display('Ankit')
+
+s2=ABC()
+s2.display('Kunla')
+
+"""Output
+Name of student is Ankit
+Name of student is Kunla""""""24. Create class Shape by extending the ABC and declare abstract method displayNumOfSides.
+	- Create class Circle by extending Shape and try to initialize it.
+	- Create class Circle, Rectangle and Cube by extending Shape. Provide implementation to method displayNumOfSides"""
+
+from abc import ABC, abstractmethod
+class Shape:
+    @abstractmethod
+    def NumSide(self):
+        pass
+class Circle(Shape):
+    def NumSide(self):
+        print("Infinite sides")
+class Rectangle(Shape):
+    def NumSide(self):
+        print("4 sides")
+class Cube(Shape):
+    def NumSide(self):
+        print("12 sides")
+s1=Cube()
+s1.NumSide()
+s2=Rectangle()
+s2.NumSide()
+
+"""Output
+12 sides
+4 sides"""#25. Write note on interface in python.
+
+"""the interface is a collection of method signatures that should be provided by the implementing class.
+Implementing an interface is a way of writing an organized code and achieve abstraction.""""""26. Create an interface as ShapeDetails which extends the ABC and declare below abstract methods
+	- calculateArea
+	- displayNumOfSides
+	- displayArea
+	- Create Class Circle, implement the interface in it, provide the implementation to interface methods
+	- Get the classname as input from console, initialize the obejct and call all the methods declared in that Class
+	"""
+
+import zope.interface
+class ShapeDetails(zope.interface.Interface):
+    def calArea(self):
+        pass
+    def sides(self):
+        pass
+    def Area(self):
+        pass
+class Circle:
+    def calArea(self,r):
+        return (3.14*r*r)
+    def sides(self):
+        print("Infinite")
+    def Area(self,r):
+        print(self.calArea(r))
+
+s1=Circle
+s1.sides()
+s1.Area(3)
+#27. Write note on Concreate class, Abstract class and Interface. WAP to demonstrate all the functionalities in it.
+
+"""A concrete class can only have concrete methods. Even a single abstract method makes the class abstract. Abstract
+ class can not be instantiated using new keyword. Concrete class can be instantiated using new keyword. the interface
+is a collection of method signatures that should be provided by the implementing class. Implementing an interface is a way of writing an organized code and achieve abstraction"""#28. Write note on public, private and protected Attributes.
+
+"""The members of a class that are declared public are easily accessible from any part of the program. All data
+members and member functions of a class are public by default.
+The members of a class that are declared protected are only accessible to a class derived from it. Data members of a
+ class are declared protected by adding a single underscore ‘_’ symbol before the data member of that class.
+ The members of a class that are declared private are accessible within the class only, private access modifier is
+ the most secure access modifier. Data members of a class are declared private by adding a double underscore ‘__’
+ symbol before the data member of that class.
+
+""""""29. Create class Student, declare the student name as pulic, student department as protected and studebt id as private.
+	1. Define as method display which prints all the attribets of Student
+	2. Create student class object object stud and try to print the attributesof the student outside the class using stud.attributename
+	"""
+
+class Student:
+    name=None
+    _dept=None
+    __id=None
+    def __init__(self,name,dept,id):
+        self.name=name
+        self._dept=dept
+        self.__id=id
+    def display(self):
+        print("Name is",self.name)
+        print("Department is",self._dept)
+        print("Id is",self.__id)
+
+s1=Student('Ankit','ETC',7)
+s1.display()
+
+"""Output
+Name is Ankit
+Department is ETC
+Id is 7"""
+
+"""3. Write short note on below
+	- Method overriding
+	- COnstructor overriding"""
+
+"""Method overriding:
+Method overriding is an ability of any object-oriented programming language that allows a subclass or child class 
+to provide a specific implementation of a method that is already provided by one of its super-classes or parent 
+classes. When a method in a subclass has the same name, same parameters or signature and same return type
+(or sub-type) as a method in its super-class, then the method in the subclass is said to override the method in the 
+super-class.
+
+Constructor overriding
+Constructor cannot be overridden. If you try to write a super class's constructor in the sub class compiler treats 
+it as a method and expects a return type and generates a compile time error."""#30. Solve the Que 29.2 using __str__ method. Hint: Need to override __str__ .
+
+"""4. Create below ctructure and understand the duck typing
+	Class Duck
+		Create method talk with self and print Quack Quack
+	Class Dog
+		Create method talk with self and print Bow Bow
+	Class Cat
+		Create method talk with self and print Meow meow
+	Class Goat
+		Create method talk with self and print Myaah Myaah
+
+	Create Declare function fun(object)
+		call talk method of each object
+
+Create list of the objects containing object of each class and iterate on it. Call the function fun for each object."""
+
+class Duck:
+    def talk(self):
+        print("Quack Quack")
+
+class Dog:
+    def talk(self):
+        print("Bow Bow")
+
+class Cat:
+    def talk(self):
+        print("Meow Meow")
+
+for obj in Duck(),Dog(), Cat():
+    obj.talk()
+
+
+"""Output
+Quack Quack
+Bow Bow
+Meow Meow"""#5. What will happen in above scenario if we create an Lion class and deflate method roar instead of creating talk.
+
+"""It will show error as the attribute is changed"""#6. Solve the problem of Que 6 using hasattr method"""7. Write short note on below
+	- Operator overloading
+	- Method overloading
+	- COnstructor overloading"""
+
+"""Operator overloading
+Operator Overloading means giving extended meaning beyond their predefined operational meaning. For example operator
+ + is used to add two integers as well as join two strings and merge two lists. It is achievable because ‘+’ operator
+is overloaded by int class and str class.
+
+Method Overloading
+Method Overloading is the class having methods that are the same name with different arguments. Arguments different 
+will be based on a number of arguments and types of arguments. It is used in a single class. It is also used to write
+ the code clarity as well as reduce complexity.
+ 
+ Constructor Overloading
+ Constructor overloading is a concept of having more than one constructor with different parameters list, in such a
+  way so that each constructor performs a different task. """#8. Create class Book init it using number of pages. Create two objects of the class book with num pages as 100 and 200 respectively. Tey to perform the + operation on those objects.
+
+class Book:
+    def __init__(self,a):
+        self.a=a
+    def __add__(self, o):
+        return self.a+o.a
+
+pg1=Book(100)
+pg2=Book(200)
+print(pg1+pg2)
+
+"""Output
+300"""#9. Solve problem of Que 8 using magic method
+
+class Book:
+    def __init__(self,a):
+        self.a=a
+    def __add__(self, o):
+        return self.a+o
+
+obj1=Book(100)
+print(obj1+200)
+
+"""Output
+300"""#Write short note on polymorphism
+
+"""Polymorphism is the capability of a method to do different things based on the object that it is acting upon.
+In other words, polymorphism allows you define one interface and have multiple implementations. It is a feature
+that allows one interface to be used for a general class of actions."""
